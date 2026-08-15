@@ -237,8 +237,6 @@
                         email: email,
                         message: message,
                         subject: '来自个人网站「夕阳西下，煮一碗清粥」的联系消息',
-                        // 蜜罐字段必须提交空值，否则 Web3Forms 会判定为机器人请求
-                        botcheck: '',
                     }),
                 });
 
