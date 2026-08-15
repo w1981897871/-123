@@ -367,8 +367,9 @@
     }
 
     // 键盘快捷键 M：播放 / 暂停音乐
+    // 用 e.code（物理按键码）判断，避免中文输入法等场景下 e.key 为 undefined 导致崩溃
     document.addEventListener('keydown', (e) => {
-        if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (e.code === 'KeyM' && !e.ctrlKey && !e.metaKey && !e.altKey) {
             toggleMusic();
         }
     });
