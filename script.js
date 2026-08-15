@@ -198,7 +198,6 @@
 
     if (form) {
         const submitBtn = form.querySelector('button[type="submit"]');
-        const botcheck = $('#botcheck');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -238,7 +237,8 @@
                         email: email,
                         message: message,
                         subject: '来自个人网站「夕阳西下，煮一碗清粥」的联系消息',
-                        botcheck: botcheck ? botcheck.value : '',
+                        // 蜜罐字段必须提交空值，否则 Web3Forms 会判定为机器人请求
+                        botcheck: '',
                     }),
                 });
 
