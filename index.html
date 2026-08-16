@@ -33,7 +33,7 @@
     <!-- 导航栏 -->
     <header class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#home" class="logo">🌇 夕阳西下</a>
+            <a href="#home" class="logo">🌇 <span data-cfg="shortName">夕阳西下</span></a>
             <button class="menu-toggle" id="menuToggle" aria-label="切换菜单" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
@@ -57,57 +57,27 @@
             </div>
             <div class="container hero-container">
                 <div class="hero-text">
-                    <p class="hero-greeting reveal">你好，我是</p>
-                    <h1 class="hero-name reveal">夕阳西下，<span class="gradient-text">煮一碗清粥</span></h1>
+                    <p class="hero-greeting reveal" data-cfg="greeting">你好，我是</p>
+                    <h1 class="hero-name reveal"><span class="gradient-text" data-cfg="fullName">夕阳西下，煮一碗清粥</span></h1>
                     <p class="hero-typing reveal">
-                        <span class="typing-label">我是一名</span>
+                        <span class="typing-label" data-cfg="typingLabel">我是一名</span>
                         <span class="typed" id="typedText"></span><span class="cursor">|</span>
                     </p>
-                    <p class="hero-desc reveal">
+                    <p class="hero-desc reveal" data-cfg="heroDesc">
                         热爱技术的开发者，专注于用代码解决问题，
                         也喜欢在夕阳西下时煮一碗清粥，认真生活。
                     </p>
                     <div class="hero-btns reveal">
-                        <a href="#life" class="btn btn-primary">看看随笔</a>
-                        <a href="#contact" class="btn btn-ghost">联系我</a>
+                        <a href="#life" class="btn btn-primary" data-cfg="heroBtn1.text" data-cfg-href="heroBtn1.href">看看随笔</a>
+                        <a href="#contact" class="btn btn-ghost" data-cfg="heroBtn2.text" data-cfg-href="heroBtn2.href">联系我</a>
                     </div>
-                    <div class="hero-social reveal">
-                        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.35.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 0 1 2.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.21.67.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-                        </a>
-                        <a href="https://juejin.cn/" target="_blank" rel="noopener" aria-label="掘金" title="掘金">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 1.2 6v12L12 24l10.8-6V6L12 0zm0 2.4 8.6 4.78-3.36 1.87L12 6.14 6.76 9.05 3.4 7.18 12 2.4zm0 4.03 3.68 2.04L12 10.5 8.32 8.47 12 6.43zM12 12.5l3.68-2.04 3.36 1.86-7.04 3.91-7.04-3.91 3.36-1.86L12 12.5zm-8.6 3.79L12 19.76l8.6-3.47v3.71L12 23.47l-8.6-3.47v-3.71z"/></svg>
-                        </a>
-                        <a href="https://blog.csdn.net/" target="_blank" rel="noopener" aria-label="CSDN" title="CSDN">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.7 13.1c-.2.5-.7.9-1.3 1.1-1 .3-2.1.4-3.3.4-1.5 0-2.8-.2-3.8-.6-.6-.3-.9-.7-1-1.2-.1-.3 0-.6.2-.8.2-.3.5-.4.8-.4.5 0 .9.2 1.3.4.6.2 1.4.4 2.5.4 1.2 0 2.1-.2 2.7-.5.4-.2.6-.5.6-.9 0-.2-.1-.4-.2-.5-.2-.1-.5-.3-1-.4l-1.4-.3c-1.2-.3-2.1-.6-2.7-1.1-.6-.5-.9-1.2-.9-2.1 0-.6.2-1.2.5-1.7.3-.5.8-.9 1.4-1.2.6-.3 1.3-.4 2.2-.4.9 0 1.7.1 2.4.3.6.2 1.2.4 1.6.6.6.3.9.7 1 1.2.1.3.1.6-.1.9-.1.3-.4.5-.7.6-.3.1-.6.1-.8 0-.5-.2-1-.4-1.6-.5-.8-.2-1.5-.2-2.1 0-.4.1-.6.3-.6.6 0 .2.1.4.3.5.2.1.6.3 1.1.4l1.3.3c1.3.3 2.2.7 2.9 1.2.7.5 1 1.3 1 2.3 0 .6-.1 1.2-.4 1.7z"/></svg>
-                        </a>
-                        <a href="mailto:wang_1981897871@foxmail.com" aria-label="邮箱" title="邮箱">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.24-8 5.33-8-5.33V6.5l8 5.33 8-5.33V8.24z"/></svg>
-                        </a>
-                    </div>
+                    <div class="hero-social reveal" data-render="social"></div>
                 </div>
                 <div class="hero-visual reveal">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="dot dot-red"></span>
-                            <span class="dot dot-yellow"></span>
-                            <span class="dot dot-green"></span>
-                            <span class="code-title">hello-world.ts</span>
-                        </div>
-                        <pre class="code-body"><code><span class="kw">const</span> me = {
-  name: <span class="str">'夕阳西下'</span>,
-  hobby: <span class="str">'煮一碗清粥'</span>,
-  role: <span class="str">'Developer'</span>,
-  skills: [<span class="str">'Web'</span>, <span class="str">'Backend'</span>, <span class="str">'AI'</span>],
-  code: <span class="fun">() =></span> <span class="str">'Hello, World!'</span>,
-
-  <span class="kw">async</span> dream() {
-    <span class="kw">return</span> <span class="str">'用代码温暖生活'</span>;
-  }
-};
-
-<span class="fun">console</span>.log(me.dream());</code></pre>
+                    <div class="hero-carousel" id="heroCarousel">
+                        <div class="carousel-track" id="carouselTrack"></div>
                     </div>
+                    <p class="carousel-tip">🖼️ 流水灯图片 · 鼠标悬停暂停</p>
                 </div>
             </div>
             <a href="#about" class="hero-scroll" aria-label="向下滚动">
@@ -134,28 +104,12 @@
                         <div class="avatar-badge badge-2">💻 写代码的人</div>
                     </div>
                     <div class="about-text reveal">
-                        <h3>一名普通但认真的 <span class="gradient-text">开发者</span></h3>
-                        <p>
-                            你好，我是「夕阳西下，煮一碗清粥」。白天和代码打交道，构建稳定、好用的产品；
-                            傍晚则回到厨房，煮一碗清粥，享受慢下来的时光。我相信技术与生活并不冲突——
-                            好的代码应当像一碗清粥：简单、温暖、有营养。
-                        </p>
-                        <p>
-                            我的技术之路从网页前端开始，逐渐延伸到后端与数据分析，
-                            目前关注现代 Web 技术、自动化工具与人工智能应用。
-                            喜欢把复杂的事情做简单，把简单的事情做到位。
-                        </p>
-                        <ul class="about-facts">
-                            <li><span class="fact-label">姓名</span>夕阳西下，煮一碗清粥</li>
-                            <li><span class="fact-label">身份</span>开发者 / 程序员</li>
-                            <li><span class="fact-label">方向</span>Web 全栈 · 自动化 · AI 应用</li>
-                            <li><span class="fact-label">爱好</span>写代码 · 煮粥 · 阅读 · 摄影</li>
-                            <li><span class="fact-label">邮箱</span>wang_1981897871@foxmail.com</li>
-                            <li><span class="fact-label">状态</span>🟢 正在持续学习与输出</li>
-                        </ul>
+                        <h3><span class="gradient-text" data-cfg="aboutTitle">一名普通但认真的开发者</span></h3>
+                        <div class="about-paragraphs" data-render="aboutParagraphs"></div>
+                        <ul class="about-facts" data-render="aboutFacts"></ul>
                         <div class="about-actions">
-                            <a href="#contact" class="btn btn-primary">与我交流</a>
-                            <a href="mailto:wang_1981897871@foxmail.com?subject=简历请求" class="btn btn-ghost">获取简历</a>
+                            <a href="#contact" class="btn btn-primary" data-cfg="aboutBtn1.text" data-cfg-href="aboutBtn1.href">与我交流</a>
+                            <a href="mailto:wang_1981897871@foxmail.com?subject=简历请求" class="btn btn-ghost" data-cfg="aboutBtn2.text" data-cfg-href="aboutBtn2.href">获取简历</a>
                         </div>
                     </div>
                 </div>
@@ -170,80 +124,7 @@
                     <h2 class="section-title">技能栈</h2>
                     <p class="section-subtitle">日常使用的技术与工具</p>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-card reveal">
-                        <div class="skill-head">
-                            <span class="skill-icon" style="--icon-color:#61dafb;">⚛️</span>
-                            <h3>前端开发</h3>
-                        </div>
-                        <div class="skill-bars">
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>HTML5 / CSS3</span><span>90%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>JavaScript / TypeScript</span><span>85%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Vue / React</span><span>80%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Vite / 工程化</span><span>75%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-card reveal">
-                        <div class="skill-head">
-                            <span class="skill-icon" style="--icon-color:#68a063;">🖥️</span>
-                            <h3>后端开发</h3>
-                        </div>
-                        <div class="skill-bars">
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Node.js</span><span>85%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Python</span><span>80%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>MySQL / MongoDB</span><span>75%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>RESTful API 设计</span><span>80%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-card reveal">
-                        <div class="skill-head">
-                            <span class="skill-icon" style="--icon-color:#f39c12;">🛠️</span>
-                            <h3>工具与运维</h3>
-                        </div>
-                        <div class="skill-bars">
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Git / GitHub</span><span>90%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Linux / Shell</span><span>70%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>Docker</span><span>65%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65%"></div></div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-info"><span>AI 工具链</span><span>80%</span></div>
-                                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="skills-grid" data-render="skills"></div>
             </div>
         </section>
 
@@ -257,29 +138,10 @@
                 </div>
                 <div class="life-featured reveal">
                     <span class="life-quote-mark">"</span>
-                    <p class="life-featured-text">夕阳西下，煮一碗清粥。世界很大，而幸福往往很小——小到一碗热粥、一抹晚霞，就足够让这一天变得温柔。</p>
-                    <span class="life-featured-author">—— 夕阳西下，煮一碗清粥</span>
+                    <p class="life-featured-text" id="lifeFeaturedText" data-cfg="lifeFeatured">夕阳西下，煮一碗清粥。世界很大，而幸福往往很小——小到一碗热粥、一抹晚霞，就足够让这一天变得温柔。</p>
+                    <span class="life-featured-author" data-cfg="lifeAuthor">—— 夕阳西下，煮一碗清粥</span>
                 </div>
-                <div class="life-grid">
-                    <blockquote class="quote-card reveal">
-                        <p>夕阳不是一天的结束，而是天空把温柔的颜色都留给了傍晚，好让赶路的人歇一歇脚。</p>
-                    </blockquote>
-                    <blockquote class="quote-card reveal">
-                        <p>煮粥急不得：等水开，等米烂，等香气慢慢飘满屋子。生活也是，慢慢来，反而更快。</p>
-                    </blockquote>
-                    <blockquote class="quote-card reveal">
-                        <p>代码是白天的诗，清粥是傍晚的梦。把热爱写进工作，把温柔留给生活。</p>
-                    </blockquote>
-                    <blockquote class="quote-card reveal">
-                        <p>愿你眼里有光，心中有暖，手边有一碗冒着热气的清粥——这就是普通日子里最好的礼物。</p>
-                    </blockquote>
-                    <blockquote class="quote-card reveal">
-                        <p>认真做一件事，慢慢走一段路，世界就会在某个不经意的黄昏，把答案轻轻递到你面前。</p>
-                    </blockquote>
-                    <blockquote class="quote-card reveal">
-                        <p>所谓美好，不过是：白天有人并肩前行，傍晚有人问一句"粥煮好了，回来吃吗？"</p>
-                    </blockquote>
-                </div>
+                <div class="life-grid" data-render="lifeQuotes"></div>
             </div>
         </section>
 
@@ -292,36 +154,7 @@
                     <p class="section-subtitle">欢迎交流技术、生活，或者一起聊聊煮粥的心得</p>
                 </div>
                 <div class="contact-grid">
-                    <div class="contact-info reveal">
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <div>
-                                <h3>邮箱</h3>
-                                <p><a href="mailto:wang_1981897871@foxmail.com">wang_1981897871@foxmail.com</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">🐙</span>
-                            <div>
-                                <h3>GitHub</h3>
-                                <p><a href="https://github.com/" target="_blank" rel="noopener">github.com/你的用户名</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">✍️</span>
-                            <div>
-                                <h3>技术博客</h3>
-                                <p><a href="https://juejin.cn/" target="_blank" rel="noopener">掘金 · 个人主页</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <div>
-                                <h3>坐标</h3>
-                                <p>中国 · 地球 🌍</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="contact-info reveal" data-render="contactLinks"></div>
                     <form class="contact-form reveal" id="contactForm" novalidate>
                         <input type="checkbox" id="botcheck" name="botcheck" value="" style="display:none;" tabindex="-1" autocomplete="off">
                         <div class="form-group">
@@ -337,7 +170,7 @@
                             <textarea id="cfMessage" class="form-control" rows="5" placeholder="写下你想说的话……" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">发送消息</button>
-                        <p class="form-hint">已接入 Web3Forms 真实发送服务 · 在 script.js 顶部填入 Access Key 后即可使用</p>
+                        <p class="form-hint">已接入 Web3Forms 真实发送服务 · 如需更换 Access Key 请修改 site-config.js</p>
                     </form>
                 </div>
             </div>
@@ -349,7 +182,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="footer-logo">🌇 夕阳西下，煮一碗清粥</div>
+                    <div class="footer-logo">🌇 <span data-cfg="fullName">夕阳西下，煮一碗清粥</span></div>
                     <p>用代码构建世界，用清粥温暖生活。</p>
                 </div>
                 <div class="footer-col">
@@ -388,21 +221,114 @@
     <audio id="bgMusic" preload="auto"></audio>
 
     <!-- 悬浮音乐播放器 -->
-    <div class="music-player" id="musicPlayer" title="薛之谦《暧昧》· 整曲循环">
+    <div class="music-player" id="musicPlayer" title="背景音乐 · 随机播放">
         <button class="music-btn" id="musicToggle" aria-label="播放/暂停音乐" aria-pressed="false">
             <span class="music-disc">🎵</span>
         </button>
         <div class="music-info">
-            <span class="music-title">暧昧 · 薛之谦</span>
+            <span class="music-title" id="musicTitle">背景音乐</span>
             <span class="music-mode" id="musicMode">整曲循环</span>
         </div>
+        <button class="music-next" id="musicNext" aria-label="下一首" title="下一首">⏭</button>
     </div>
 
     <!-- 自动播放提示条（浏览器拦截自动播放时显示） -->
     <div class="music-hint" id="musicHint" role="status">
-        🎵 点击页面任意位置，播放《暧昧》
+        🎵 点击页面任意位置，开始播放音乐
     </div>
 
+    <!-- 网站编辑入口（仅作者可见：访问 ?edit 并输入密码后显示） -->
+    <button class="edit-btn" id="editBtn" title="编辑网站内容" aria-label="编辑网站内容" style="display:none;">✏️</button>
+
+    <!-- 作者验证弹窗 -->
+    <div class="auth-overlay" id="authOverlay" hidden>
+        <div class="auth-box">
+            <h3>🔒 作者验证</h3>
+            <p class="auth-sub">请输入编辑密码，验证后即可修改网站内容</p>
+            <input type="password" id="authPassword" class="auth-input" placeholder="编辑密码" autocomplete="off">
+            <p class="auth-error" id="authError" hidden>密码不正确，请重试</p>
+            <div class="auth-actions">
+                <button class="btn btn-ghost" id="authCancel">取消</button>
+                <button class="btn btn-primary" id="authSubmit">验证</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑面板 -->
+    <div class="editor-overlay" id="editorOverlay" hidden>
+        <div class="editor-panel">
+            <div class="editor-head">
+                <h2>✏️ 编辑网站内容</h2>
+                <button class="editor-close" id="editorClose" aria-label="关闭">×</button>
+            </div>
+            <div class="editor-body">
+                <div class="editor-note">
+                    修改后点"保存并生效"。若已配置云端地址，所有访客刷新即可看到新内容，无需重新上传文件；
+                    未配置云端地址时，内容仅保存在当前浏览器（本地预览用）。
+                </div>
+
+                <section class="editor-section">
+                    <h3>① 基本信息</h3>
+                    <label>短名（导航/页脚）<input type="text" id="e-shortName"></label>
+                    <label>全名（首页大标题）<input type="text" id="e-fullName"></label>
+                    <label>问候语<input type="text" id="e-greeting"></label>
+                    <label>打字机标签<input type="text" id="e-typingLabel"></label>
+                    <label>打字机短语（每行一条）<textarea id="e-typingPhrases" rows="4"></textarea></label>
+                    <label>首页介绍<textarea id="e-heroDesc" rows="3"></textarea></label>
+                </section>
+
+                <section class="editor-section">
+                    <h3>② 关于我</h3>
+                    <label>小标题<input type="text" id="e-aboutTitle"></label>
+                    <label>介绍段落（每行一段）<textarea id="e-aboutParagraphs" rows="5"></textarea></label>
+                    <label>信息卡片（每行：标签=值）<textarea id="e-aboutFacts" rows="6"></textarea></label>
+                </section>
+
+                <section class="editor-section">
+                    <h3>③ 技能</h3>
+                    <p class="editor-help">格式：<code>#分类名|图标</code> 表示新分类，下面每行 <code>技能名=百分比</code></p>
+                    <textarea id="e-skills" rows="10"></textarea>
+                </section>
+
+                <section class="editor-section">
+                    <h3>④ 生活随笔</h3>
+                    <label>大引言<textarea id="e-lifeFeatured" rows="3"></textarea></label>
+                    <label>落款<input type="text" id="e-lifeAuthor"></label>
+                    <label>随笔句子（每行一句）<textarea id="e-lifeQuotes" rows="8"></textarea></label>
+                </section>
+
+                <section class="editor-section">
+                    <h3>⑤ 联系方式</h3>
+                    <label>邮箱<input type="text" id="e-email"></label>
+                    <label>坐标<input type="text" id="e-location"></label>
+                    <label>社交链接（每行：平台|链接）<textarea id="e-social" rows="4"></textarea></label>
+                    <label>联系卡片（每行：图标|标题|显示文字|链接）<textarea id="e-contactLinks" rows="5"></textarea></label>
+                </section>
+
+                <section class="editor-section">
+                    <h3>⑥ 背景音乐</h3>
+                    <label>音乐文件名（每行一个，对应 music/ 文件夹里的文件）<textarea id="e-musicFiles" rows="4"></textarea></label>
+                    <label class="editor-check"><input type="checkbox" id="e-musicRandom"> 随机选歌播放</label>
+                    <label class="editor-check"><input type="checkbox" id="e-musicLoop"> 整曲循环（不勾选=只循环前奏）</label>
+                    <label>音量（0~1）<input type="number" id="e-musicVolume" min="0" max="1" step="0.05"></label>
+                </section>
+
+                <section class="editor-section">
+                    <h3>⑦ 云端配置</h3>
+                    <label>云端配置地址<input type="text" id="e-remoteUrl" placeholder="Pantry 或 KVdb 的配置地址"></label>
+                    <p class="editor-help">支持两种免费服务（任选其一）：<br>
+                    ① Pantry（推荐，无需注册邮箱）：打开 <a href="https://getpantry.cloud" target="_blank" rel="noopener">getpantry.cloud</a> → Create New Pantry → 得到 ID → 地址填 <code>https://getpantry.cloud/apiv1/pantry/你的ID/basket/site-config</code><br>
+                    ② KVdb：<a href="https://kvdb.io" target="_blank" rel="noopener">kvdb.io</a> 创建 bucket（需邮箱验证）→ 地址填 <code>https://kvdb.io/你的bucketID/site-config</code></p>
+                </section>
+            </div>
+            <div class="editor-foot">
+                <button class="btn btn-ghost" id="editorCancel">取消</button>
+                <button class="btn btn-primary" id="editorSave">保存并生效</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="site-config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
