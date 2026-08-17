@@ -153,6 +153,19 @@ window.SITE_CONFIG = {
         accessKey: "5692e1e7-3618-4c22-b850-3d7ace1f747f"  // 你的 Access Key
     },
 
+    /* ========== ⑩ 留言区（giscus 评论区，可选） ==========
+       启用步骤（约 3 分钟，README 有详细说明）：
+       1. 打开 https://giscus.app/zh-CN ，选择你的仓库，开启 Discussions
+       2. 按页面提示生成配置，得到 repo / repoId / category / categoryId
+       3. 把下面四项填好，enabled 改为 true */
+    giscus: {
+        enabled: false,                  // 配置好后改为 true
+        repo: "",                        // 例如 "w1981897871/-123"
+        repoId: "",                      // 仓库 ID（giscus 页面自动生成）
+        category: "Announcements",       // Discussions 分类名
+        categoryId: ""                   // 分类 ID（giscus 页面自动生成）
+    },
+
     /* ========== ⑨ 作者编辑权限 ==========
        只有输入正确密码才能编辑网站内容（其他访客不可编辑，也看不到编辑按钮）。
        密码本身不存明文，只存它的 SHA-256 哈希，访客查看源码也无法得到密码。

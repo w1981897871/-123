@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · 页面走丢了</title>
+    <meta name="robots" content="noindex">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0d1220;
+            --bg-2: #111827;
+            --text: #e6eaf5;
+            --muted: #98a2bd;
+            --dim: #6b7694;
+            --border: #26324d;
+            --primary: #6366f1;
+            --accent: #22d3ee;
+            --gradient: linear-gradient(135deg, #6366f1, #8b5cf6 55%, #d946ef);
+            --shadow: 0 20px 60px rgba(0, 0, 0, .45);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f4f6fb;
+                --bg-2: #e9edf5;
+                --text: #1d2537;
+                --muted: #56607a;
+                --dim: #8b94ab;
+                --border: #d5dce9;
+                --shadow: 0 20px 60px rgba(35, 45, 80, .18);
+            }
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 30%, rgba(99, 102, 241, .18), transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 80%, rgba(217, 70, 239, .12), transparent 70%);
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 48px 40px;
+            max-width: 90vw;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        @media (prefers-color-scheme: light) {
+            .card { background: rgba(255, 255, 255, .7); }
+        }
+
+        .code {
+            font-size: clamp(4rem, 12vw, 7rem);
+            font-weight: 800;
+            line-height: 1.1;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 4px;
+        }
+
+        .emoji {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-top: 10px;
+        }
+
+        h1 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            margin: 14px 0 10px;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--muted);
+            font-size: .95rem;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .countdown {
+            color: var(--dim);
+            font-size: .82rem;
+            margin: 12px 0 24px;
+        }
+
+        .countdown b { color: var(--accent); }
+
+        .btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 30px;
+            border-radius: 30px;
+            font-size: .95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .3s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 10px 26px rgba(99, 102, 241, .35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(99, 102, 241, .5);
+        }
+
+        .btn-ghost {
+            color: var(--text);
+            border-color: var(--border);
+            background: transparent;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="card">
+        <div class="code">404</div>
+        <div class="emoji">🌇</div>
+        <h1>页面走丢了</h1>
+        <p>你访问的页面不存在，或已被移动。</p>
+        <p>就像夕阳落下，明早还会升起——回到首页，重新开始吧。</p>
+        <div class="countdown"><b id="sec">5</b> 秒后自动返回首页…</div>
+        <div class="btns">
+            <a href="./" class="btn btn-primary">🏠 返回首页</a>
+            <a href="javascript:history.back()" class="btn btn-ghost">← 返回上一页</a>
+        </div>
+    </div>
+    <script>
+        // 5 秒倒计时后自动跳转首页
+        (function () {
+            var sec = 5;
+            var el = document.getElementById('sec');
+            var timer = setInterval(function () {
+                sec--;
+                if (sec <= 0) {
+                    clearInterval(timer);
+                    location.href = './';
+                } else {
+                    el.textContent = sec;
+                }
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>

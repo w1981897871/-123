@@ -23,6 +23,20 @@
     }
     </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌇</text></svg>">
+    <script>
+        // 主题初始化：优先用户选择，否则跟随系统（放在样式前，避免闪烁）
+        (function () {
+            try {
+                var t = localStorage.getItem('my-site-theme');
+                if (!t) {
+                    t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,14 +48,18 @@
     <header class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo">🌇 <span data-cfg="shortName">夕阳西下</span></a>
-            <button class="menu-toggle" id="menuToggle" aria-label="切换菜单" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="切换深色/浅色主题" title="切换主题">☀️</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="切换菜单" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">首页</a></li>
                 <li><a href="#about">关于</a></li>
                 <li><a href="#skills">技能</a></li>
                 <li><a href="#life">随笔</a></li>
+                <li><a href="#comments">留言</a></li>
                 <li><a href="#contact">联系</a></li>
             </ul>
         </div>
@@ -145,6 +163,18 @@
             </div>
         </section>
 
+        <!-- 留言区（giscus 评论区） -->
+        <section class="section" id="comments">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-tag">COMMENTS</p>
+                    <h2 class="section-title">留言区</h2>
+                    <p class="section-subtitle">欢迎留下你的想法，一起聊聊生活与代码</p>
+                </div>
+                <div class="giscus-box reveal" id="giscusContainer"></div>
+            </div>
+        </section>
+
         <!-- 联系 -->
         <section class="section section-alt" id="contact">
             <div class="container">
@@ -204,6 +234,10 @@
                         <li><a href="mailto:wang_1981897871@foxmail.com">邮箱</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="site-stats" id="siteStats">
+                <span class="stat-item">👥 访客 <span class="stat-num" id="busuanzi_value_site_uv">0</span> 人次</span>
+                <span class="stat-item">👁️ 访问量 <span class="stat-num" id="busuanzi_value_site_pv">0</span> 次</span>
             </div>
             <div class="copyright">
                 <p>© <span id="year">2025</span> 夕阳西下，煮一碗清粥 · 用心制作，保留所有权利</p>
@@ -330,5 +364,7 @@
 
     <script src="site-config.js"></script>
     <script src="script.js"></script>
+    <!-- 不蒜子访问统计 -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>

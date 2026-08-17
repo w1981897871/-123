@@ -5,6 +5,25 @@
 
 /* ---------- 变量与基础 ---------- */
 :root {
+    /* 不随主题变化的公共变量 */
+    --primary: #6366f1;
+    --primary-2: #8b5cf6;
+    --accent: #22d3ee;
+    --gradient: linear-gradient(135deg, #6366f1, #8b5cf6 55%, #d946ef);
+    --gradient-soft: linear-gradient(135deg, rgba(99, 102, 241, .14), rgba(139, 92, 246, .14));
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: all .3s ease;
+    --container-width: 1140px;
+    --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    --mono: "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace;
+}
+
+/* 深色主题（默认） */
+:root,
+html[data-theme="dark"] {
+    color-scheme: dark;
     --bg: #0d1220;
     --bg-alt: #111827;
     --surface: #161f33;
@@ -13,20 +32,76 @@
     --text: #e6eaf5;
     --text-muted: #98a2bd;
     --text-dim: #6b7694;
-    --primary: #6366f1;
-    --primary-2: #8b5cf6;
-    --accent: #22d3ee;
-    --gradient: linear-gradient(135deg, #6366f1, #8b5cf6 55%, #d946ef);
-    --gradient-soft: linear-gradient(135deg, rgba(99, 102, 241, .14), rgba(139, 92, 246, .14));
     --shadow: 0 12px 40px rgba(0, 0, 0, .35);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, .45);
-    --radius: 16px;
-    --radius-sm: 10px;
-    --transition: all .3s ease;
-    --container-width: 1140px;
-    --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
-        "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
-    --mono: "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace;
+    --navbar-bg: rgba(13, 18, 32, .82);
+    --footer-bg: #0a0f1b;
+    --panel-head: #0f1626;
+    --track-bg: rgba(255, 255, 255, .06);
+    --quote-mark: rgba(255, 255, 255, .05);
+    --glass-bg: rgba(13, 18, 32, .88);
+}
+
+/* 浅色主题 */
+html[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f4f6fb;
+    --bg-alt: #e9edf5;
+    --surface: #ffffff;
+    --surface-hover: #f0f3fa;
+    --border: #d5dce9;
+    --text: #1d2537;
+    --text-muted: #56607a;
+    --text-dim: #8b94ab;
+    --shadow: 0 12px 40px rgba(35, 45, 80, .12);
+    --shadow-lg: 0 20px 60px rgba(35, 45, 80, .18);
+    --navbar-bg: rgba(255, 255, 255, .88);
+    --footer-bg: #1d2537;
+    --panel-head: #f0f3fa;
+    --track-bg: rgba(30, 40, 80, .08);
+    --quote-mark: rgba(30, 40, 80, .07);
+    --glass-bg: rgba(255, 255, 255, .92);
+}
+
+/* 浅色主题下的硬编码深色修正 */
+html[data-theme="light"] .navbar.scrolled {
+    background: var(--navbar-bg);
+}
+
+html[data-theme="light"] .editor-head,
+html[data-theme="light"] .editor-foot {
+    background: var(--panel-head);
+}
+
+html[data-theme="light"] .footer {
+    background: var(--footer-bg);
+}
+
+html[data-theme="light"] .skill-bar-track {
+    background: var(--track-bg);
+}
+
+html[data-theme="light"] .quote-card::after {
+    color: var(--quote-mark);
+}
+
+html[data-theme="light"] .music-info,
+html[data-theme="light"] .music-next,
+html[data-theme="light"] .edit-btn {
+    background: var(--glass-bg);
+}
+
+html[data-theme="light"] .blob {
+    opacity: .22;
+}
+
+html[data-theme="light"] .carousel-empty,
+html[data-theme="light"] .giscus-placeholder {
+    color: var(--text-dim);
+}
+
+html[data-theme="light"] .scroll-top {
+    color: #fff;
 }
 
 * {
@@ -132,10 +207,38 @@ section[id] {
 
 .navbar.scrolled {
     padding: 12px 0;
-    background: rgba(13, 18, 32, .82);
+    background: var(--navbar-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(38, 50, 77, .6);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 主题切换按钮 */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 1.05rem;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: rotate(20deg);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, .25);
 }
 
 .nav-container {
@@ -1055,6 +1158,46 @@ textarea.form-control {
     text-align: center;
     color: var(--text-dim);
     font-size: .85rem;
+}
+
+/* ---------- 访问统计（不蒜子） ---------- */
+.site-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 18px 0 4px;
+    color: rgba(255, 255, 255, .55);
+    font-size: .85rem;
+}
+
+.site-stats .stat-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.site-stats .stat-num {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ---------- 评论区（giscus） ---------- */
+.giscus-box {
+    width: 100%;
+    min-height: 60px;
+}
+
+.giscus-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    font-size: .9rem;
+    line-height: 1.8;
 }
 
 /* ---------- 返回顶部 ---------- */

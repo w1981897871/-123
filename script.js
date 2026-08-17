@@ -698,6 +698,7 @@
         applyConfig();
         setupAnimations();
         startQuoteRotation();
+        initComments();
         if (musicMode) musicMode.textContent = musicLoopIntro() ? '前奏循环' : '整曲循环';
         if (musicTitle) musicTitle.textContent = trackTitle(currentFile());
         if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -1083,6 +1084,57 @@
     // 启动生活随笔 20 秒随机轮播
     startQuoteRotation();
 
+    /* ---------- 13. 深色/浅色主题切换 ---------- */
+    const THEME_KEY = 'my-site-theme';
+    const themeToggle = $('#themeToggle');
+
+    function currentTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'dark';
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (themeToggle) themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* 忽略 */ }
+    }
+
+    function toggleTheme() {
+        applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+        initComments(); // 评论区跟随主题重载
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    applyTheme(currentTheme()); // 同步按钮图标
+
+    /* ---------- 14. 留言区（giscus 评论区） ---------- */
+    function initComments() {
+        const box = $('#giscusContainer');
+        if (!box) return;
+        const g = CFG.giscus;
+        if (!g || !g.enabled || !g.repo || !g.repoId || !g.categoryId) {
+            box.innerHTML = '<div class="giscus-placeholder">💬 评论区尚未启用。<br>在 site-config.js 的 giscus 配置中填入仓库与分类 ID 后即可开启（详见 README）。</div>';
+            return;
+        }
+        box.innerHTML = '';
+        const s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', g.repo);
+        s.setAttribute('data-repo-id', g.repoId);
+        s.setAttribute('data-category', g.category);
+        s.setAttribute('data-category-id', g.categoryId);
+        s.setAttribute('data-mapping', 'pathname');
+        s.setAttribute('data-strict', '0');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '0');
+        s.setAttribute('data-input-position', 'bottom');
+        s.setAttribute('data-theme', currentTheme() === 'light' ? 'light' : 'dark');
+        s.setAttribute('data-lang', 'zh-CN');
+        s.crossOrigin = 'anonymous';
+        s.async = true;
+        box.appendChild(s);
+    }
+
     // 页面加载完成后尝试拉取云端配置
     loadRemoteConfig();
+    initComments();
 })();
