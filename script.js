@@ -107,7 +107,10 @@
         const pool = [];
         if (CFG.lifeFeatured) pool.push(CFG.lifeFeatured);
         if (Array.isArray(CFG.lifeQuotes)) pool.push.apply(pool, CFG.lifeQuotes);
-        return pool;
+        // 过滤空文本和异常短文本（防止坏数据导致轮播异常）
+        return pool.filter(function (s) {
+            return typeof s === 'string' && s.trim().length > 1;
+        });
     }
 
     function startQuoteRotation() {
@@ -1106,32 +1109,141 @@
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
     applyTheme(currentTheme()); // 同步按钮图标
 
-    /* ---------- 14. 留言区（giscus 评论区） ---------- */
+    /* ---------- 14. 留言区（免登录留言，存储到 Pantry 云端） ---------- */
+    const CMT_KEY = 'my-site-comments-v1';
+
+    function getCmtCache() {
+        try {
+            const s = localStorage.getItem(CMT_KEY);
+            if (s) {
+                const d = JSON.parse(s);
+                if (Array.isArray(d)) return d;
+            }
+        } catch (e) { /* 忽略 */ }
+        return null;
+    }
+
+    function setCmtCache(list) {
+        try { localStorage.setItem(CMT_KEY, JSON.stringify(list)); } catch (e) { /* 忽略 */ }
+    }
+
     function initComments() {
-        const box = $('#giscusContainer');
+        const box = $('#commentContainer');
         if (!box) return;
-        const g = CFG.giscus;
-        if (!g || !g.enabled || !g.repo || !g.repoId || !g.categoryId) {
-            box.innerHTML = '<div class="giscus-placeholder">💬 评论区尚未启用。<br>在 site-config.js 的 giscus 配置中填入仓库与分类 ID 后即可开启（详见 README）。</div>';
+        const c = CFG.comments;
+        if (!c || !c.enabled || !c.storageUrl) {
+            box.innerHTML = '<div class="giscus-placeholder">💬 留言区尚未启用：在 site-config.js 的 comments 配置中填写存储地址后即可开启。</div>';
             return;
         }
-        box.innerHTML = '';
-        const s = document.createElement('script');
-        s.src = 'https://giscus.app/client.js';
-        s.setAttribute('data-repo', g.repo);
-        s.setAttribute('data-repo-id', g.repoId);
-        s.setAttribute('data-category', g.category);
-        s.setAttribute('data-category-id', g.categoryId);
-        s.setAttribute('data-mapping', 'pathname');
-        s.setAttribute('data-strict', '0');
-        s.setAttribute('data-reactions-enabled', '1');
-        s.setAttribute('data-emit-metadata', '0');
-        s.setAttribute('data-input-position', 'bottom');
-        s.setAttribute('data-theme', currentTheme() === 'light' ? 'light' : 'dark');
-        s.setAttribute('data-lang', 'zh-CN');
-        s.crossOrigin = 'anonymous';
-        s.async = true;
-        box.appendChild(s);
+        const storageUrl = c.storageUrl;
+        box.innerHTML =
+            '<div class="comment-form">' +
+                '<div class="comment-form-row">' +
+                    '<input type="text" id="cmtName" class="form-control" maxlength="30" placeholder="你的名字（可匿名）">' +
+                '</div>' +
+                '<div class="comment-form-row">' +
+                    '<textarea id="cmtText" class="form-control" maxlength="500" rows="3" placeholder="写下你想说的话……"></textarea>' +
+                '</div>' +
+                '<div class="comment-form-foot">' +
+                    '<p class="cmt-hint" id="cmtHint"></p>' +
+                    '<button class="btn btn-primary" id="cmtSubmit">发表留言</button>' +
+                '</div>' +
+            '</div>' +
+            '<div class="comment-list" id="cmtList"></div>';
+
+        loadComments(storageUrl);
+        const submitBtn = $('#cmtSubmit');
+        if (submitBtn) submitBtn.addEventListener('click', function () {
+            submitComment(storageUrl);
+        });
+        const textEl = $('#cmtText');
+        if (textEl) {
+            textEl.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && e.code === 'Enter') submitComment(storageUrl);
+            });
+        }
+    }
+
+    function renderComments(list) {
+        const listEl = $('#cmtList');
+        if (!listEl) return;
+        if (!list || !list.length) {
+            listEl.innerHTML = '<p class="cmt-empty">还没有留言，来抢沙发吧 🛋️</p>';
+            return;
+        }
+        listEl.innerHTML = list.slice().reverse().map(function (c) {
+            return '<div class="comment-item">' +
+                '<div class="comment-head">' +
+                    '<span class="comment-name">' + esc(c.name || '匿名') + '</span>' +
+                    '<span class="comment-time">' + esc(c.time || '') + '</span>' +
+                '</div>' +
+                '<p class="comment-text">' + esc(c.text) + '</p>' +
+            '</div>';
+        }).join('');
+    }
+
+    function loadComments(storageUrl) {
+        const cached = getCmtCache();
+        if (cached) renderComments(cached); // 先用缓存快速显示
+        fetch(storageUrl, { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+                const list = (data && Array.isArray(data.list)) ? data.list : [];
+                renderComments(list);
+                setCmtCache(list);
+            })
+            .catch(function () { /* 缓存兜底 */ });
+    }
+
+    async function submitComment(storageUrl) {
+        const hint = $('#cmtHint');
+        const textEl = $('#cmtText');
+        const btn = $('#cmtSubmit');
+        if (!textEl || !btn) return;
+        const name = ($('#cmtName') && $('#cmtName').value.trim()) || '匿名';
+        const text = textEl.value.trim();
+        if (!text) {
+            if (hint) hint.textContent = '请先写下留言内容 😊';
+            return;
+        }
+        btn.disabled = true;
+        btn.textContent = '发表中…';
+        try {
+            // 优先用本地缓存列表，减少云端请求（避免限流）；无缓存才读取
+            let list = getCmtCache();
+            if (!list) {
+                try {
+                    const r = await fetch(storageUrl, { cache: 'no-store' });
+                    if (r.ok) {
+                        const d = await r.json();
+                        if (d && Array.isArray(d.list)) list = d.list;
+                    }
+                } catch (e) { /* 忽略 */ }
+                list = list || [];
+            }
+            list.push({
+                name: name,
+                text: text,
+                time: new Date().toLocaleString('zh-CN', { hour12: false })
+            });
+            if (list.length > 200) list = list.slice(-200); // 防止无限增长
+            // POST 覆盖写入
+            const resp = await fetch(storageUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ list: list }),
+            });
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            textEl.value = '';
+            if (hint) hint.textContent = '留言成功，感谢你的分享 🎉';
+            setCmtCache(list);
+            renderComments(list);
+        } catch (err) {
+            if (hint) hint.textContent = '留言失败：' + err.message + '（留言人数较多时请稍后再试）';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '发表留言';
+        }
     }
 
     // 页面加载完成后尝试拉取云端配置

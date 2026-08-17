@@ -10,7 +10,7 @@
 - **随机音乐**：把音乐放进 `music/` 文件夹、在配置里列个文件名，网站自动随机选歌整曲循环；播放器带 ⏭ 随机切歌
 - **深色/浅色主题切换**：导航栏 ☀️/🌙 按钮一键切换，记忆你的选择，默认跟随系统
 - **访问统计**：页脚显示访客数与访问量（不蒜子，免费）
-- **留言区**：随笔下方可开启 giscus 评论区（访客留言存到你的 GitHub Discussions）
+- **留言区（免登录）**：访客无需注册，填名字+内容即可留言，留言保存在 Pantry 云端；支持 Ctrl+Enter 快捷发送
 - **深色现代风**：渐变强调色 + 玻璃拟态导航 + 网格/光晕背景
 - **打字机效果**：首页身份描述自动轮播
 - **生活随笔**：记录黄昏、清粥与生活美好的诗意文字区块
@@ -178,25 +178,14 @@ www.xiyangxia.com
 
 > 提示：免费域名也可用 `.eu.org`、`.tk` 等，绑定流程相同。
 
-## 💬 开启留言区（giscus，约 3 分钟）
+## 💬 留言区（免登录，已启用）
 
-1. 打开你的 GitHub 仓库 → **Settings** → 左侧 **General** → 滚动到 **Discussions** → 勾选 **Set up discussions** → 初始化一个分类（如 Announcements）
-2. 打开 <https://giscus.app/zh-CN>，在"仓库"输入框填 `你的用户名/仓库名`（如 `w1981897871/-123`）→ 点 **启用 giscus**
-3. 按页面提示完成配置（会引导你在仓库安装 giscus app 并选择分类），页面会生成一段代码
-4. 从生成代码里复制四个值：`data-repo`、`data-repo-id`、`data-category`、`data-category-id`
-5. 打开 `site-config.js`，填入 `giscus` 配置并改 `enabled: true`：
-   ```js
-   giscus: {
-       enabled: true,
-       repo: "w1981897871/-123",
-       repoId: "R_xxx",
-       category: "Announcements",
-       categoryId: "DIC_xxx"
-   },
-   ```
-6. 重新上传 `site-config.js`（或在网站 `?edit` 面板保存一次同步云端），留言区即可使用
+访客无需注册，直接在留言区输入名字（可匿名）和内容即可留言，留言保存在 **Pantry 云端**（免费），所有访客都能看到。
 
-> 访客的留言会以 Discussion 的形式出现在你的仓库 Discussions 里，完全免费、无需自建后端。
+- **提交**：点"发表留言"或按 **Ctrl+Enter**
+- **限制**：名字 ≤ 30 字，内容 ≤ 500 字，最多保留最近 200 条
+- **存储位置**：`site-config.js` 的 `comments` 配置（`storageUrl` 指向 Pantry 的 comments 篮子）
+- 说明：Pantry 免费版有请求频率限制，留言人数较多时提交可能提示稍后再试（属正常保护）
 
 ## 📊 访问统计（不蒜子）
 

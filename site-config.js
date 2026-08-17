@@ -153,17 +153,12 @@ window.SITE_CONFIG = {
         accessKey: "5692e1e7-3618-4c22-b850-3d7ace1f747f"  // 你的 Access Key
     },
 
-    /* ========== ⑩ 留言区（giscus 评论区，可选） ==========
-       启用步骤（约 3 分钟，README 有详细说明）：
-       1. 打开 https://giscus.app/zh-CN ，选择你的仓库，开启 Discussions
-       2. 按页面提示生成配置，得到 repo / repoId / category / categoryId
-       3. 把下面四项填好，enabled 改为 true */
-    giscus: {
-        enabled: false,                  // 配置好后改为 true
-        repo: "",                        // 例如 "w1981897871/-123"
-        repoId: "",                      // 仓库 ID（giscus 页面自动生成）
-        category: "Announcements",       // Discussions 分类名
-        categoryId: ""                   // 分类 ID（giscus 页面自动生成）
+    /* ========== ⑩ 留言区（免登录留言） ==========
+       访客无需注册，直接填名字和内容即可留言，留言保存在云端（Pantry）。
+       如需更换存储地址，保持 URL 以 /basket/xxx 结尾即可。 */
+    comments: {
+        enabled: true,                   // 是否开启留言区
+        storageUrl: "https://getpantry.cloud/apiv1/pantry/e32e82a0-e262-469f-b598-9dd8347e0b27/basket/comments"   // 留言存储地址
     },
 
     /* ========== ⑨ 作者编辑权限 ==========
