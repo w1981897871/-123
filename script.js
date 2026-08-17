@@ -873,6 +873,7 @@
             closeAuth();
             updateEditBtn();
             openEditor();
+            refreshCommentsUI(); // 验证通过后刷新留言区，显示删除按钮
         } else {
             if (authError) authError.hidden = false;
             if (authPassword) authPassword.select();
@@ -1186,6 +1187,15 @@
                 if (e.ctrlKey && e.code === 'Enter') submitComment(storageUrl);
             });
         }
+        // 删除按钮事件委托（仅作者可见）
+        const listEl = $('#cmtList');
+        if (listEl) {
+            listEl.addEventListener('click', function (e) {
+                const btn = e.target.closest('.comment-del');
+                if (!btn) return;
+                deleteComment(storageUrl, parseInt(btn.getAttribute('data-idx'), 10));
+            });
+        }
     }
 
     function renderComments(list) {
@@ -1195,15 +1205,59 @@
             listEl.innerHTML = '<p class="cmt-empty">还没有留言，来抢沙发吧 🛋️</p>';
             return;
         }
-        listEl.innerHTML = list.slice().reverse().map(function (c) {
+        const canDelete = isEditorAuthed(); // 只有作者能看到删除按钮
+        listEl.innerHTML = list.slice().reverse().map(function (c, idx) {
+            const origIdx = list.length - 1 - idx; // 反转后对应原数组位置
+            const delBtn = canDelete
+                ? '<button class="comment-del" data-idx="' + origIdx + '" title="删除这条留言" aria-label="删除">✕</button>'
+                : '';
             return '<div class="comment-item">' +
                 '<div class="comment-head">' +
                     '<span class="comment-name">' + esc(c.name || '匿名') + '</span>' +
                     '<span class="comment-time">' + esc(c.time || '') + '</span>' +
+                    delBtn +
                 '</div>' +
                 '<p class="comment-text">' + esc(c.text) + '</p>' +
             '</div>';
         }).join('');
+    }
+
+    // 作者删除留言（先读取云端最新列表，避免误删/覆盖）
+    async function deleteComment(storageUrl, idx) {
+        if (!isEditorAuthed()) {
+            showToast('无删除权限 🔒', 'error');
+            return;
+        }
+        if (!window.confirm('确定删除这条留言吗？')) return;
+        let list = getCmtCache() || [];
+        try {
+            const r = await fetch(storageUrl, { cache: 'no-store' });
+            if (r.ok) {
+                const d = await r.json();
+                if (d && Array.isArray(d.list)) list = d.list;
+            }
+        } catch (e) { /* 使用缓存 */ }
+        if (idx < 0 || idx >= list.length) return;
+        list.splice(idx, 1);
+        try {
+            const resp = await fetch(storageUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ list: list }),
+            });
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            setCmtCache(list);
+            renderComments(list);
+            showToast('留言已删除 🗑️');
+        } catch (err) {
+            showToast('删除失败：' + err.message + '（请稍后再试）', 'error');
+        }
+    }
+
+    // 重新加载留言（作者验证成功后调用，让删除按钮出现）
+    function refreshCommentsUI() {
+        const c = CFG.comments;
+        if (c && c.enabled && c.storageUrl) loadComments(c.storageUrl);
     }
 
     function loadComments(storageUrl) {

@@ -1267,6 +1267,25 @@ textarea.form-control {
     color: var(--accent);
 }
 
+.comment-del {
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: .85rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    transition: var(--transition);
+    opacity: .6;
+    flex-shrink: 0;
+}
+
+.comment-del:hover {
+    color: #f87171;
+    background: rgba(248, 113, 113, .12);
+    opacity: 1;
+}
+
 .comment-time {
     font-size: .78rem;
     color: var(--text-dim);
