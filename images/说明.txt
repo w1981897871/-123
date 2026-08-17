@@ -1,0 +1,33 @@
+把首页流水灯轮播的图片放在本文件夹中。
+
+## 使用步骤
+
+1. 将图片（建议 16:10 横图，例如 1280x800）放到本文件夹（images/），命名为：
+   - `1.jpg`（或 1.png、1.webp）
+   - `2.jpg`
+   - `3.jpg`
+   也可以多放几张。
+2. 打开网站根目录的 `site-config.js`，在 `heroImages` 里把文件名逐行写上：
+   ```js
+   heroImages: [
+       "images/1.jpg",
+       "images/2.jpg",
+       "images/3.jpg"
+   ],
+   ```
+3. 刷新网页：首页右侧就会以"流水灯"效果自动轮播这些图片（鼠标悬停暂停）。
+
+## 也可以用网络图片
+
+`heroImages` 里直接填完整网址也可以，例如：
+```js
+heroImages: [
+    "https://example.com/photo1.jpg",
+    "https://example.com/photo2.jpg"
+],
+```
+
+## 直接在网站上改
+
+打开网站 → 点右上角 ✏️ 按钮 → 没有专门字段时，可在"首页介绍"区域自行添加
+（或修改 site-config.js 后保存生效）。
