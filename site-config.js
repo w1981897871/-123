@@ -29,10 +29,24 @@ window.SITE_CONFIG = {
     heroDesc: "热爱技术的开发者，专注于用代码解决问题，也喜欢在夕阳西下时煮一碗清粥，认真生活。",
     heroBtn1: { text: "看看随笔", href: "#life" },      // 首页第一个按钮
     heroBtn2: { text: "联系我", href: "#contact" },     // 首页第二个按钮
-    heroImages: [                                       // 首页右侧的轮播图片（流水灯效果）
-        "images/1.jpg",                                 // 放 images/ 文件夹里的图片文件名
-        "images/2.jpg",                                 // 或填完整图片网址（https://...）
-        "images/3.jpg"
+    heroImages: [
+        "images/photo10.jpg",
+        "images/photo11.jpg",
+        "images/photo12.jpg",
+        "images/photo13.jpg",
+        "images/photo14.jpg",
+        "images/photo15.jpg",
+        "images/photo16.jpg",
+        "images/photo17.jpg",
+        "images/photo18.jpg",
+        "images/photo19.jpg",
+        "images/photo20.jpg",
+        "images/photo4.jpg",
+        "images/photo5.jpg",
+        "images/photo6.jpg",
+        "images/photo7.jpg",
+        "images/photo8.jpg",
+        "images/photo9.jpg"
     ],
 
     /* ========== ② 关于我 ========== */

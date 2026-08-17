@@ -192,7 +192,8 @@
         ).join('');
         track.innerHTML = items;
         track.classList.toggle('running', images.length > 1);
-        track.style.animationDuration = images.length > 1 ? (images.length * 5) + 's' : '';
+        // 轮播速度：每张图片展示约 8 秒（数字越小滚得越快）
+        track.style.animationDuration = images.length > 1 ? (images.length * 8) + 's' : '';
         sizeCarousel();
     }
 
