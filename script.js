@@ -1127,6 +1127,30 @@
         try { localStorage.setItem(CMT_KEY, JSON.stringify(list)); } catch (e) { /* 忽略 */ }
     }
 
+    /* ---------- 留言敏感词过滤 ---------- */
+    function escapeRegExp(str) {
+        return String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // 把文本中的粗俗词替换为同长度星号；返回 {text, filtered}
+    function filterBadWords(input) {
+        let text = String(input == null ? '' : input);
+        let filtered = false;
+        const words = (CFG.badwords && Array.isArray(CFG.badwords)) ? CFG.badwords : [];
+        words.forEach(function (w) {
+            if (!w) return;
+            try {
+                const re = new RegExp(escapeRegExp(w), 'gi');
+                if (re.test(text)) {
+                    filtered = true;
+                    const mask = '*'.repeat(w.length);
+                    text = text.replace(re, mask);
+                }
+            } catch (e) { /* 忽略单个词错误 */ }
+        });
+        return { text: text, filtered: filtered };
+    }
+
     function initComments() {
         const box = $('#commentContainer');
         if (!box) return;
@@ -1201,10 +1225,18 @@
         const btn = $('#cmtSubmit');
         if (!textEl || !btn) return;
         const name = ($('#cmtName') && $('#cmtName').value.trim()) || '匿名';
-        const text = textEl.value.trim();
+        let text = textEl.value.trim();
         if (!text) {
             if (hint) hint.textContent = '请先写下留言内容 😊';
             return;
+        }
+        // 粗俗词自动屏蔽
+        const nameFiltered = filterBadWords(name);
+        const textFiltered = filterBadWords(text);
+        text = textFiltered.text;
+        const finalName = nameFiltered.text || '匿名';
+        if (nameFiltered.filtered || textFiltered.filtered) {
+            if (hint) hint.textContent = '已自动屏蔽留言中的不当词语 🔇';
         }
         btn.disabled = true;
         btn.textContent = '发表中…';
@@ -1222,7 +1254,7 @@
                 list = list || [];
             }
             list.push({
-                name: name,
+                name: finalName,
                 text: text,
                 time: new Date().toLocaleString('zh-CN', { hour12: false })
             });
