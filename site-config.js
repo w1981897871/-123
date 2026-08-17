@@ -118,6 +118,13 @@ window.SITE_CONFIG = {
        （每行一个，格式如 "暧昧.mp3"），网站会自动随机选一首循环播放。 */
     music: {
         files: [                             // music/ 文件夹里的所有音乐文件名
+            "1..mp3",
+            "2..mp3",
+            "3..mp3",
+            "4..mp3",
+            "5..mp3",
+            "6..mp3",
+            "山雀..mp3",
             "暧昧.mp3"
         ],
         random: true,                        // true=随机选歌 false=按列表顺序播放
